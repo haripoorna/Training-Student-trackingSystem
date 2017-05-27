@@ -9,24 +9,30 @@
  * Main module of the application.
  */
 angular
-  .module('trainingTrackingSystemApp', [
-    'ngAnimate',
-    'ngAria',
-    'ngCookies',
-    'ngMessages',
-    'ngResource',
-    'ngRoute',
-    'ngSanitize',
-    'ngTouch'
-  ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-  });
+    .module('trainingTrackingSystemApp', [
+        'ngAnimate',
+        'ngAria',
+        'ngMaterial',
+        'ngCookies',
+        'ngMessages',
+        'ngResource',
+        'ngSanitize',
+        'ngStorage',
+        'ui.router',
+        'ui-rangeSlider',
+        'ui.bootstrap'
+    ])
+    .config(['$stateProvider', '$urlRouterProvider', function(stateProvider, urlRouterProvider) {
+        stateProvider
+            .state('home', {
+                url: '/home',
+                templateUrl: 'views/home.html',
+                controller: 'homeController',
+                controllerAs: 'home-controller'
+            })
+        urlRouterProvider.otherwise(function($injector, $location) {
+            var state = $injector.get('$state');
+
+            state.go('home');
+        });
+    }]);
