@@ -30,9 +30,14 @@ angular
                 controller: 'homeController',
                 controllerAs: 'home-controller'
             })
+            .state('dashboard', {
+                url: '/dashboard',
+                templateUrl: 'views/dashboard/dashboard.html',
+                controller: 'dashboardController',
+                controllerAs: 'dashboard-controller'
+            });
         urlRouterProvider.otherwise(function($injector, $location) {
             var state = $injector.get('$state');
-
             state.go('home');
         });
     }]);

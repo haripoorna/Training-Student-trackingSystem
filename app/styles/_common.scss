@@ -1,0 +1,72 @@
+body,
+html {
+    font-family: 'Roboto' !important;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+*:focus {
+    outline: none !important;
+    border: 0;
+}
+
+.no-padding {
+    padding: 0px !important;
+}
+
+.disabled {
+    cursor: not-allowed !important;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.pointer {
+    cursor: pointer !important;
+}
+
+.no-pointer {
+    cursor: default;
+}
+
+.full-page {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.text-capitalize {
+    text-transform: capitalize;
+}
+
+.parent-container {
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    .child-container {
+        align-self: center;
+        border-radius: 8px;
+    }
+}
+
+.button-container {
+    display: inline-block;
+    cursor: pointer;
+    margin-top: 6px;
+    padding: 11px 47px;
+    width: 288px;
+    height: 40px;
+    border-radius: 100px;
+    border: 1px solid #b1b1b1;
+    color: #b1b1b1;
+}

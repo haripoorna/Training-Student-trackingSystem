@@ -1,0 +1,17 @@
+.course-container {
+    border-radius: 4px;
+    background-color: #ffffff;
+    border: solid 1px #9b9b9b;
+    color: black;
+    margin: 10px;
+    .course-content {
+        padding: 4px 17px;
+        font-size: 16px;
+    }
+    .course-container-isChecked {
+        border-radius: 4px;
+        background-color: black;
+        color: white;
+        border: 1px solid white;
+    }
+}
