@@ -12,7 +12,10 @@
                         <div class="course-content inline-block " data-ng-class="{ 'course-container-isChecked': course.isChecked} " data-ng-bind="course.name"></div>
                     </span>
                         <div>
-                            <button class="btn btn-success" data-ng-click="startSession()" data-ng-if="!sessionStarted">Start</button>
+                            <button class="btn btn-success" data-ng-click="startSession()">Start</button>
+                        </div>
+                        <div>
+                            <button class="btn btn-warning" data-ng-if="sessionRunning" data-ng-click="stopSession()">Stop</button>
                         </div>
                         <h4>{{sessionStarted}}</h4>
                     </div>
@@ -24,6 +27,10 @@
                         <div>
                             <button class="btn btn-success" data-ng-click="startSession()">Start</button>
                         </div>
+                        <div>
+                            <button class="btn btn-warning" data-ng-if="sessionRunning" data-ng-click="stopSession()">Stop</button>
+                        </div>
+                        <h4>{{sessionStarted}}</h4>
                     </div>
                 </div>
             </div>
