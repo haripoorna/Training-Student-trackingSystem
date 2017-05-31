@@ -6,13 +6,14 @@
                     <h1>Lync Digtial Academy</h1>
                     <h3>Training Tracking System</h3>
                     <hr class="intro-divider">
-                    <div data-ng-if="isTrainer">
-                        <h4>{{dashboardContent.trainer.Name}}</h4>
+
+                    <div data-ng-if="!isTrainer">
+                        <h4>{{user}}</h4>
                         <span class="course-container inline-block pointer" data-ng-repeat="course in dashboardContent.trainer.Courses track by $index " data-ng-click="selectCourse(course)" data-ng-disabled="courseSelected">
                         <div class="course-content inline-block " data-ng-class="{ 'course-container-isChecked': course.isChecked} " data-ng-bind="course.name"></div>
                     </span>
                         <div>
-                            <button class="btn btn-success" data-ng-click="startSession()">Start</button>
+                            <button class="btn btn-success" data-ng-click="startSession(courseName)">Start</button>
                         </div>
                         <div>
                             <button class="btn btn-warning" data-ng-if="sessionRunning" data-ng-click="stopSession()">Stop</button>
@@ -20,12 +21,12 @@
                         <h4>{{sessionStarted}}</h4>
                     </div>
                     <div data-ng-if="isStudent">
-                        <h4>{{dashboardContent.student.Name}}</h4>
-                        <span class="course-container  inline-block pointer" data-ng-repeat="course in dashboardContent.trainer.Courses  track by $index" data-ng-click="selectCourse(course)">
+                        <h4>{{user}}</h4>
+                        <span class="course-container  inline-block pointer" data-ng-repeat="course in content track by $index" data-ng-click="selectCourse(course)">   
                          <div class="course-content inline-block" data-ng-class="{'course-container-isChecked': course.isChecked}" data-ng-bind="course.name"></div>
                     </span>
                         <div>
-                            <button class="btn btn-success" data-ng-click="startSession()">Start</button>
+                            <button class="btn btn-success" data-ng-click="startSession(courseName)">Start</button>
                         </div>
                         <div>
                             <button class="btn btn-warning" data-ng-if="sessionRunning" data-ng-click="stopSession()">Stop</button>
