@@ -8,15 +8,20 @@
                     <hr class="intro-divider">
 
                     <div data-ng-if="!isTrainer">
-                        <h4>{{user}}</h4>
-                        <span class="course-container inline-block pointer" data-ng-repeat="course in dashboardContent.trainer.Courses track by $index " data-ng-click="selectCourse(course)" data-ng-disabled="courseSelected">
-                        <div class="course-content inline-block " data-ng-class="{ 'course-container-isChecked': course.isChecked} " data-ng-bind="course.name"></div>
-                    </span>
-                        <div>
-                            <button class="btn btn-success" data-ng-click="startSession(courseName)">Start</button>
+                        <h2>{{user}}</h2>
+                        <div data-ng-if="!isSession">
+                            <span class="course-container inline-block pointer" data-ng-repeat="course in dashboardContent.trainer.Courses track by $index " data-ng-click="selectCourse(course)" data-ng-disabled="courseSelected">
+                                <div class="course-content inline-block " data-ng-class="{ 'course-container-isChecked': course.isChecked} " data-ng-bind="course.name"></div>
+                            </span>
+                            <div>
+                                <button class="btn btn-success" data-ng-click="startSession(courseName)">Start</button>
+                            </div>
                         </div>
-                        <div>
-                            <button class="btn btn-warning" data-ng-if="sessionRunning" data-ng-click="stopSession()">Stop</button>
+                        <div data-ng-if="isSession">
+                            <h4>Your {{userInfo.course}} class is Running</h4>
+                            <div>
+                                <button class="btn btn-warning" data-ng-if="sessionRunning" data-ng-click="stopSession()">Stop</button>
+                            </div>
                         </div>
                         <h4>{{sessionStarted}}</h4>
                     </div>

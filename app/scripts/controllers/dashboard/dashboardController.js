@@ -17,6 +17,11 @@ angular.module('trainingTrackingSystemApp')
             'course':null,
             'tname':null
         }
+        scope.stopUserSessionRequest = {
+            'id':null,
+            'timeOut':null,
+            'tname':null
+        }
         rootScope.userInfo = myStorage.getItem('userInfo');
         rootScope.user = myStorage.getItem('user');
         scope.id = myStorage.getItem('id');
@@ -41,7 +46,7 @@ angular.module('trainingTrackingSystemApp')
             /*scope.date = date();
             scope.time = scope.date.getTime();
             console.log(scope.time);*/
-            console.log(courseName)
+            console.log(courseName);
             scope.d = new Date();
             scope.getHours = scope.d.getHours();
             scope.getMinutes = scope.d.getMinutes();
@@ -62,4 +67,19 @@ angular.module('trainingTrackingSystemApp')
                 alert("select your course");
             }
         };
+        scope.stopSession =function(){
+            scope.d = new Date();
+            scope.getHours = scope.d.getHours();
+            scope.getMinutes = scope.d.getMinutes();
+            scope.getSeconds = scope.d.getSeconds();
+            console.log(scope.getHours + ":" + scope.getMinutes + ":" + scope.getSeconds);
+            scope.startUserSessionRequest.timeIn = scope.getHours + ":" + scope.getMinutes + ":" + scope.getSeconds
+            scope.startUserSessionRequest.id = scope.id;
+            scope.startUserSessionRequest.tname = rootScope.user;
+            scope.startUserSessionRequest.course = scope.courseName;
+            requestService.invokeService(requestAndResponse.stopTrainerSession, 'POST', null, scope.stopUserSessionRequest).then(function(response) {
+                    console.log(response)
+                    scope.sessionStarted = "Your session is stopped";
+                });
+        }
     }]);

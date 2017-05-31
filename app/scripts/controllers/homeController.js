@@ -31,8 +31,8 @@ angular.module('trainingTrackingSystemApp')
                     if (response.data.type === "error") {
                         rootScope.errorMessage = response.data.message;
                     } 
-                    if(response.data.message.session == 'true'){
-                        state.go()
+                    if(response.data.message.session){
+                        scope.isSession = true;
                     } 
                     else {
                         rootScope.userInfo = response.data.message.course;
