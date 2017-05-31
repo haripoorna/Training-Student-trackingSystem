@@ -8,11 +8,13 @@
  * Controller of the trainingTrackingSystemApp
  */
 angular.module('trainingTrackingSystemApp')
-    .controller('dashboardController', ['$scope', '$rootScope', 'dashboardContent', '$state', 'requestService', 'requestAndResponse', function(scope, rooScope, dashboardContent, state, requestService, requestAndResponse) {
+    .controller('dashboardController', ['$scope', '$rootScope', 'dashboardContent', '$state', 'requestService', 'requestAndResponse', function(scope, rootScope, dashboardContent, state, requestService, requestAndResponse) {
         var myStorage = localStorage;
+        scope.userInfo = myStorage.getItem('userInfo');
+        console.log(scope.userInfo);
         scope.dashboardContent = dashboardContent;
         console.log(scope.dashboardContent.trainer.Courses);
-        if (true) {
+        if (!scope.userInfo) {
             state.go('home', {}, { reload: true });
         }
         scope.selectCourse = function(course) {

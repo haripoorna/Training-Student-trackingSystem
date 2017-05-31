@@ -22,34 +22,37 @@ angular.module('trainingTrackingSystemApp')
         scope.userLogRequestObject = {
             id: null
         }
-        scope.isIdSubmit = function() {
+        scope.isIdSubmit = function(id) {
             if (scope.role === "Trainer") {
-                scope.userLogRequestObject.id = scope.userId;
-                /*requestService.invokeService(requestAndResponse.trainerTrack, 'POST', null, scope.userLogRequestObject).then(function(response) {
+                scope.userLogRequestObject.id = id;
+                requestService.invokeService(requestAndResponse.checkIn, 'POST', null, scope.userLogRequestObject).then(function(response) {
                     if (response.data.type === "error") {
-                        rootScope.wrongCredentials = response.data.message;
+                        rootScope.errorMessage = response.data.message;
+                        console.log(rootScope.errorMessage);
                     } else {
+                        myStorage.setItem('userInfo', response.data.message); debugger;
                         scope.isTrainer = true;
                         state.go('dashboard');
+                        console.log(response.data.message);
                     }
-                });*/
-                rootScope.isTrainer = true;
+                });
+                /*rootScope.isTrainer = true;
                 rootScope.isStudent = false;
-                state.go('dashboard');
+                state.go('dashboard');*/
 
             } else if (scope.role === "Student") {
-                scope.userLogRequestObject.id = scope.userId;
-                /*requestService.invokeService(requestAndResponse.studentTrack, 'POST', null, scope.userLogRequestObject).then(function(response) {
-                    if (response.data.type === "error") {
+                scope.userLogRequestObject.id = scope.id;
+                requestService.invokeService(requestAndResponse.checkIn, 'POST', null, scope.userLogRequestObject).then(function(response) {
+                    if (response.type === "error") {
                         rootScope.wrongCredentials = response.data.message;
                     } else {
                         scope.isStudent = true;
                         state.go('dashboard');
                     }
-                });*/
-                rootScope.isStudent = true;
+                });
+                /*rootScope.isStudent = true;
                 rootScope.isTrainer = false;
-                state.go('dashboard');
+                state.go('dashboard');*/
             }
         };
     }]);
