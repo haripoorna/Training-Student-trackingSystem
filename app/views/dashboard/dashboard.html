@@ -3,29 +3,37 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="intro-message banner-content">
-                    <h1>Lync Digtial Academy</h1>
+                    <h1>Lync Digital Academy</h1>
                     <h3>Training Tracking System</h3>
                     <hr class="intro-divider">
-
-                    <div data-ng-if="!isTrainer">
+                    <div data-ng-if="isTrainer">
                         <h2>{{user}}</h2>
                         <div data-ng-if="!isSession">
-                            <span class="course-container inline-block pointer" data-ng-repeat="course in dashboardContent.trainer.Courses track by $index " data-ng-click="selectCourse(course)" data-ng-disabled="courseSelected">
+                            <span class="course-container inline-block pointer" data-ng-repeat="course in dashboardContent track by $index " data-ng-click="selectCourse(course)" data-ng-disabled="courseSelected">
                                 <div class="course-content inline-block " data-ng-class="{ 'course-container-isChecked': course.isChecked} " data-ng-bind="course.name"></div>
                             </span>
                             <div>
                                 <button class="btn btn-success" data-ng-click="startSession(courseName)">Start</button>
                             </div>
+                            <h4>{{sessionStarted}}</h4>
                         </div>
                         <div data-ng-if="isSession">
-                            <h4>Your {{userInfo.course}} class is Running</h4>
-                            <div>
-                                <button class="btn btn-warning" data-ng-if="sessionRunning" data-ng-click="stopSession()">Stop</button>
+                            <div data-ng-if="!sessionStopped">
+                                <h4>Your {{dashboardContent.course}} class is Running</h4>
+                                <p>Check-In : {{timeIn}}</span></p>
+                                <div>
+                                    <button class="btn btn-warning" data-ng-click="stopSession()">Stop</button>
+                                </div>
+                            </div>
+                            <div data-ng-if="sessionStopped">
+                                <p>Check-In : {{timeIn}} <span>Check-Out : {{stopUserSessionRequest.timeOut}}</span></p>
+                                <h3>Your total duration of your session is  {{stopUserSessionRequest.totalTime}} hours</h3>
+                                <h4>{{sessionStopped}}</h4>
+                                <p>Thank You..!</p>
                             </div>
                         </div>
-                        <h4>{{sessionStarted}}</h4>
                     </div>
-                    <div data-ng-if="isStudent">
+                    <div data-ng-if="false">
                         <h4>{{user}}</h4>
                         <span class="course-container  inline-block pointer" data-ng-repeat="course in content track by $index" data-ng-click="selectCourse(course)">   
                          <div class="course-content inline-block" data-ng-class="{'course-container-isChecked': course.isChecked}" data-ng-bind="course.name"></div>

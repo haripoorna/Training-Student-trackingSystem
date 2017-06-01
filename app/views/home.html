@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="intro-message banner-content">
-                    <h1>Digtial Lync Academy</h1>
+                    <h1>Digital Lync Academy</h1>
                     <h3>Training Tracking System</h3>
                     <hr class="intro-divider">
                     <ul class="list-inline intro-social-buttons" data-ng-if="!roleSelected">
@@ -34,7 +34,7 @@
                     <ul class="list-inline" data-ng-if="roleSelected">
                         <span>
                             <input class="form-control input-lg submitId" id="inputlg" type="text" data-ng-model="id">
-                            <button class="btn btn-success btn-lg" data-ng-click="isIdSubmit(id)">Submit</button>
+                            <button class="btn btn-success btn-lg" data-ng-focus="fnHideErrorMsg()" data-ng-click="isIdSubmit(id)">Submit</button>
                             <p class="errorMessage" data-ng-bind="errorMessage"></p>
                         </span>
                     </ul>

@@ -8,29 +8,30 @@
  * Controller of the trainingTrackingSystemApp
  */
 angular.module('trainingTrackingSystemApp')
-    .controller('dashboardController', ['$scope', '$rootScope', 'dashboardContent', '$state', 'requestService', 'requestAndResponse', function(scope, rootScope, dashboardContent, state, requestService, requestAndResponse) {
+    .controller('dashboardController', ['$scope', '$rootScope', 'dashboardContent', '$state', 'requestService', 'requestAndResponse', '$window', function(scope, rootScope, dashboardContent, state, requestService, requestAndResponse, window) {
         var myStorage = localStorage;
 
         scope.startUserSessionRequest = {
-            'id':null,
-            'timeIn':null,
-            'course':null,
-            'tname':null
+            'id': null,
+            'timeIn': null,
+            'course': null,
+            'tname': null
         }
         scope.stopUserSessionRequest = {
-            'id':null,
-            'timeOut':null,
-            'tname':null
+            'id': null,
+            'timeOut': null,
+            'tname': null,
+            "totalTime" : null
         }
         rootScope.userInfo = myStorage.getItem('userInfo');
+        scope.timeIn = myStorage.getItem('timeIn');
         rootScope.user = myStorage.getItem('user');
         scope.id = myStorage.getItem('id');
-        console.log(JSON.parse(rootScope.userInfo));
         scope.content = JSON.parse(rootScope.userInfo);
-       
-         scope.dashboardContent = dashboardContent;
-        scope.isTrainer = myStorage.getItem('isTrainer');
-        scope.isStudent = myStorage.getItem('isStudent');
+
+        scope.dashboardContent = scope.content;
+        rootScope.isTrainer = myStorage.getItem('isTrainer');
+        rootScope.isStudent = myStorage.getItem('isStudent');
         if (!scope.userInfo) {
             state.go('home', {}, { reload: true });
         }
@@ -50,36 +51,53 @@ angular.module('trainingTrackingSystemApp')
             scope.d = new Date();
             scope.getHours = scope.d.getHours();
             scope.getMinutes = scope.d.getMinutes();
-            scope.getSeconds = scope.d.getSeconds();
-            console.log(scope.getHours + ":" + scope.getMinutes + ":" + scope.getSeconds);
-            scope.startUserSessionRequest.timeIn = scope.getHours + ":" + scope.getMinutes + ":" + scope.getSeconds
+            scope.startUserSessionRequest.timeIn = scope.getHours + ":" + scope.getMinutes;
             scope.startUserSessionRequest.id = scope.id;
             scope.startUserSessionRequest.tname = rootScope.user;
             scope.startUserSessionRequest.course = scope.courseName;
 
             if (scope.courseSelected) {
-                  requestService.invokeService(requestAndResponse.startTrainerSession, 'POST', null, scope.startUserSessionRequest).then(function(response) {
+                requestService.invokeService(requestAndResponse.startTrainerSession, 'POST', null, scope.startUserSessionRequest).then(function(response) {
                     console.log(response)
                     scope.sessionStarted = "Your session started";
+                    setTimeout(function() {
+                        state.go('home');
+                        window.localStorage.clear();
+                    }, 2000);
                 });
-                
+
             } else {
                 alert("select your course");
             }
         };
-        scope.stopSession =function(){
+        scope.stopSession = function() {
             scope.d = new Date();
             scope.getHours = scope.d.getHours();
             scope.getMinutes = scope.d.getMinutes();
-            scope.getSeconds = scope.d.getSeconds();
-            console.log(scope.getHours + ":" + scope.getMinutes + ":" + scope.getSeconds);
-            scope.startUserSessionRequest.timeIn = scope.getHours + ":" + scope.getMinutes + ":" + scope.getSeconds
-            scope.startUserSessionRequest.id = scope.id;
-            scope.startUserSessionRequest.tname = rootScope.user;
-            scope.startUserSessionRequest.course = scope.courseName;
+            scope.stopUserSessionRequest.timeOut = scope.getHours + ":" + scope.getMinutes;
+            scope.stopUserSessionRequest.id = scope.id;
+            scope.stopUserSessionRequest.tname = rootScope.user;
+
+            function diff(timeIn, timeOut) {
+                timeIn = timeIn.split(":");
+                timeOut = timeOut.split(":");
+                var startDate = new Date(0, 0, 0, timeIn[0], timeIn[1], 0);
+                var endDate = new Date(0, 0, 0, timeOut[0], timeOut[1], 0);
+                var diff = endDate.getTime() - startDate.getTime();
+                var hours = Math.floor(diff / 1000 / 60 / 60);
+                diff -= hours * 1000 * 60 * 60;
+                var minutes = Math.floor(diff / 1000 / 60);
+                scope.stopUserSessionRequest.totalTime = (hours < 9 ? "0" : "") + hours + ":" + (minutes < 9 ? "0" : "") + minutes
+                return scope.stopUserSessionRequest.totalTime;
+            }
+            diff(scope.timeIn, scope.stopUserSessionRequest.timeOut);
             requestService.invokeService(requestAndResponse.stopTrainerSession, 'POST', null, scope.stopUserSessionRequest).then(function(response) {
-                    console.log(response)
-                    scope.sessionStarted = "Your session is stopped";
-                });
+                debugger;
+                scope.sessionStopped = "Your session is Completed";
+                setTimeout(function() {
+                    state.go('home');
+                    window.localStorage.clear();
+                }, 5000);
+            });
         }
     }]);

@@ -25,22 +25,31 @@ angular.module('trainingTrackingSystemApp')
         scope.isIdSubmit = function(id) {
             if (scope.role === "Trainer") {
                 scope.userLogRequestObject.id = id;
-                myStorage.setItem('id', scope.userLogRequestObject.id); 
-                
+                myStorage.setItem('id', scope.userLogRequestObject.id);
+
                 requestService.invokeService(requestAndResponse.checkIn, 'POST', null, scope.userLogRequestObject).then(function(response) {
                     if (response.data.type === "error") {
                         rootScope.errorMessage = response.data.message;
+                    }
+                    if (response.data.message.session) {
+                        rootScope.isSession = true;
+                        rootScope.userInfo = response.data.message;
+                        console.log(rootScope.userInfo);
+                        myStorage.setItem('userInfo', JSON.stringify(rootScope.userInfo));
+                        myStorage.setItem('user', response.data.message.tname);
+                        myStorage.setItem('timeIn' , response.data.message.timeIn);
+                        myStorage.setItem('isTrainer', true);
+                        state.go('dashboard');
+                        rootScope.isTrainer = true;
                     } 
-                    if(response.data.message.session){
-                        scope.isSession = true;
-                    } 
-                    else {
+                    else if(response.data.message.session === false){
+                        rootScope.isSession = false;
                         rootScope.userInfo = response.data.message.course;
-                        myStorage.setItem('userInfo', JSON.stringify(rootScope.userInfo)); 
-                        myStorage.setItem('user', response.data.message.name); 
-                        myStorage.setItem('isTrainer', true); 
-                        scope.isTrainer = true;
-                        
+                        myStorage.setItem('userInfo', JSON.stringify(rootScope.userInfo));
+                        myStorage.setItem('user', response.data.message.name);
+                        myStorage.setItem('isTrainer', true);
+                        rootScope.isTrainer = true;
+
                         state.go('dashboard');
                         console.log(response.data.message)
                     }
@@ -57,7 +66,7 @@ angular.module('trainingTrackingSystemApp')
                         rootScope.wrongCredentials = response.data.message;
                     } else {
                         scope.isStudent = true;
-                         myStorage.setItem('isStudent', true); 
+                        myStorage.setItem('isStudent', true);
                         state.go('dashboard');
                     }
                 });
