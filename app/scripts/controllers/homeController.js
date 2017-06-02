@@ -51,7 +51,6 @@ angular.module('trainingTrackingSystemApp')
                         rootScope.isTrainer = true;
 
                         state.go('dashboard');
-                        console.log(response.data.message)
                     }
 
                 });
@@ -75,7 +74,7 @@ angular.module('trainingTrackingSystemApp')
                 state.go('dashboard');*/
             }
         };
-        scope.fnHideErrorMsg = function(){ debugger;
+        scope.fnHideErrorMsg = function(){
             rootScope.errorMessageFlag = false;
         }
     }]);

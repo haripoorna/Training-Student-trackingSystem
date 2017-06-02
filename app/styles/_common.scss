@@ -70,3 +70,26 @@ html {
     border: 1px solid #b1b1b1;
     color: #b1b1b1;
 }
+.homeBtn{
+    background-color:$white;
+    padding:12px;
+    opacity:0.9;
+    margin:0px 0px 20px 10px;
+    cursor:pointer;
+    width:140px;
+    color:$black;
+    border-style:none;
+    border-radius:none;
+    outline:none;
+    text-decoration:none !important;
+}
+.errorMessage{
+    background-color:$white;
+    color:$black;
+    font-weight:bold;
+    width:370px;
+     opacity:0.9;
+    border-radius:10px;
+    margin:auto;
+    
+}

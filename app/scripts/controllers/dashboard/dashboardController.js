@@ -40,14 +40,12 @@ angular.module('trainingTrackingSystemApp')
             course.isChecked = !course.isChecked;
             if (course.isChecked) {
                 scope.courseSelected = course.isChecked;
-                console.log(scope.courseSelected)
             }
         };
         scope.startSession = function(courseName) {
             /*scope.date = date();
             scope.time = scope.date.getTime();
             console.log(scope.time);*/
-            console.log(courseName);
             scope.d = new Date();
             scope.getHours = scope.d.getHours();
             scope.getMinutes = scope.d.getMinutes();
@@ -58,7 +56,6 @@ angular.module('trainingTrackingSystemApp')
 
             if (scope.courseSelected) {
                 requestService.invokeService(requestAndResponse.startTrainerSession, 'POST', null, scope.startUserSessionRequest).then(function(response) {
-                    console.log(response)
                     scope.sessionStarted = "Your session started";
                     setTimeout(function() {
                         state.go('home');
@@ -92,7 +89,7 @@ angular.module('trainingTrackingSystemApp')
             }
             diff(scope.timeIn, scope.stopUserSessionRequest.timeOut);
             requestService.invokeService(requestAndResponse.stopTrainerSession, 'POST', null, scope.stopUserSessionRequest).then(function(response) {
-                debugger;
+          
                 scope.sessionStopped = "Your session is Completed";
                 setTimeout(function() {
                     state.go('home');
