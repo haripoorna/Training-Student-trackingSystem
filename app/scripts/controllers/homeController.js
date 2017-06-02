@@ -30,11 +30,11 @@ angular.module('trainingTrackingSystemApp')
                 requestService.invokeService(requestAndResponse.checkIn, 'POST', null, scope.userLogRequestObject).then(function(response) {
                     if (response.data.type === "error") {
                         rootScope.errorMessage = response.data.message;
+                        rootScope.errorMessageFlag = true;
                     }
                     if (response.data.message.session) {
                         rootScope.isSession = true;
                         rootScope.userInfo = response.data.message;
-                        console.log(rootScope.userInfo);
                         myStorage.setItem('userInfo', JSON.stringify(rootScope.userInfo));
                         myStorage.setItem('user', response.data.message.tname);
                         myStorage.setItem('timeIn' , response.data.message.timeIn);
@@ -75,4 +75,7 @@ angular.module('trainingTrackingSystemApp')
                 state.go('dashboard');*/
             }
         };
+        scope.fnHideErrorMsg = function(){ debugger;
+            rootScope.errorMessageFlag = false;
+        }
     }]);
