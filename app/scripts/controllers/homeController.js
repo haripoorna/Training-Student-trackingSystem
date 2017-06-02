@@ -34,7 +34,6 @@ angular.module('trainingTrackingSystemApp')
                     if (response.data.message.session) {
                         rootScope.isSession = true;
                         rootScope.userInfo = response.data.message;
-                        console.log(rootScope.userInfo);
                         myStorage.setItem('userInfo', JSON.stringify(rootScope.userInfo));
                         myStorage.setItem('user', response.data.message.tname);
                         myStorage.setItem('timeIn' , response.data.message.timeIn);
@@ -51,7 +50,6 @@ angular.module('trainingTrackingSystemApp')
                         rootScope.isTrainer = true;
 
                         state.go('dashboard');
-                        console.log(response.data.message)
                     }
 
                 });

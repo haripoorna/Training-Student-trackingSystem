@@ -27,15 +27,16 @@
                     <h3>Training Tracking System</h3>
                     <hr class="intro-divider">
                     <ul class="list-inline intro-social-buttons" data-ng-if="!roleSelected">
-                        <li data-ng-repeat="role in selectedRole">
-                            <a class="btn btn-default btn-lg" data-ng-click="roleIsSelected(role)"><i class="fa fa-user fa-fw"></i><span class="network-name">{{role}}</span></a>
+                        <li data-ng-repeat="role in selectedRole" >
+                            <a class="homeBtn" data-ng-click="roleIsSelected(role)"><i class="fa fa-user fa-fw"></i><span class="network-name">{{role}}</span></a>
                         </li>
                     </ul>
                     <ul class="list-inline" data-ng-if="roleSelected">
                         <span>
-                            <input class="form-control input-lg submitId" id="inputlg" type="text" data-ng-model="id">
-                            <button class="btn btn-success btn-lg" data-ng-focus="fnHideErrorMsg()" data-ng-click="isIdSubmit(id)">Submit</button>
+                            <input class="submitId" id="inputlg" type="text" data-ng-model="id" placeholder="Please Enter Your ID">
+                            <button class="homeBtn" data-ng-focus="fnHideErrorMsg()" data-ng-click="isIdSubmit(id)"><b>SUBMIT</b></button>
                             <p class="errorMessage" data-ng-bind="errorMessage"></p>
+                            <p class="errorMessage" data-ng-bind="acceptNumberMsg"> </p>
                         </span>
                     </ul>
                 </div>
